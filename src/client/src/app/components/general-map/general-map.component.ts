@@ -93,6 +93,8 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
   @ViewChild('video') video: ElementRef;
   @ViewChild('wfsCard') wfsCard: ElementRef;
 
+  public static instance: GeneralMapComponent;
+
   public closeDetailWindowEvent: Subject<void>;
   public zoomLimit: number = 9;
   public msgs: Message[];
@@ -203,6 +205,8 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
     private primengConfig: PrimeNGConfig,
     private googleAnalyticsService: GoogleAnalyticsService,
   ) {
+    GeneralMapComponent.instance = this;
+
     this.closeDetailWindowEvent = new Subject<void>();
 
     this.env = environment;
@@ -1333,7 +1337,7 @@ export class GeneralMapComponent implements OnInit, Ruler, AfterContentChecked {
       this.addInteraction(new RulerAreaCtrl(this).getDraw());
       this.googleAnalyticsService.eventEmitter("Activate", "GeoTools", "RulerArea");
     } else {
-      this.unselect()
+      this.unselect();
     }
 
   }

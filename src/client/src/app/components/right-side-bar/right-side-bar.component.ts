@@ -59,7 +59,7 @@ export class RightSideBarComponent implements OnInit {
 
   public chartsArea3 = [] as any;
   public chartsArea2 = [] as any;
-  public chartsArea1 = [] as any;
+  public chartsTimeSeries = [] as any;
   public tableRankings = [] as any;
   public infoResumo: any;
 
@@ -152,7 +152,7 @@ export class RightSideBarComponent implements OnInit {
 
     this.cardsToDisplay = {
       resumo: true,
-      area1: true,
+      timeSeries: true,
       area2: true,
       area3: false,
       rankingTable: true
@@ -315,8 +315,8 @@ export class RightSideBarComponent implements OnInit {
     if (this.cardsToDisplay.resumo) {
       this.updateResumo();
     }
-    if (this.cardsToDisplay.area1) {
-      this.updateArea1Charts()
+    if (this.cardsToDisplay.timeSeries) {
+      this.updateTimeSeriesCharts()
     }
     if (this.cardsToDisplay.area2) {
       this.updateArea2Charts()
@@ -331,7 +331,6 @@ export class RightSideBarComponent implements OnInit {
   }
 
   updateResumo() {
-
     let params: string[] = [];
     params.push('lang=' + this.localizationService.currentLang())
     params.push('typeRegion=' + this.selectRegion.type)
@@ -343,7 +342,6 @@ export class RightSideBarComponent implements OnInit {
 
     this.chartsArea2 = []
 
-
     Object.keys(this.infoResumo).forEach(key => {
       let year: string;
       if (key === 'region') {
@@ -353,45 +351,42 @@ export class RightSideBarComponent implements OnInit {
       }
       
       if (this.infoResumo[key].year !== year.replace('year=', '') || this.infoResumo[key].value !== this.selectRegion.value) {
-
         this.chartService.getResumo(textParam + `&card_resume=${key}&${year}`).subscribe(tempResumo => {
           this.infoResumo[key] = tempResumo;
           this.infoResumo[key].year = year.replace('year=', '')
           this.infoResumo[key].value = this.selectRegion.value
-
-
         }, error => {
           console.error(error)
         })
       }
     })
-
   }
 
 
 
-  updateArea1Charts() {
-    this.chartsArea1 = []
+  updateTimeSeriesCharts() {
+    this.chartsTimeSeries = [];
+    
     let params: string[] = [];
-    params.push('lang=' + this.localizationService.currentLang())
-    params.push('typeRegion=' + this.selectRegion.type)
-    params.push('valueRegion=' + this.selectRegion.value)
-    params.push('textRegion=' + this.selectRegion.text)
+
+    params.push('lang=' + this.localizationService.currentLang());
+    params.push('typeRegion=' + this.selectRegion.type);
+    params.push('valueRegion=' + this.selectRegion.value);
+    params.push('textRegion=' + this.selectRegion.text);
     let textParam = params.join('&');
 
-    this.chartService.getArea1(textParam).subscribe(tempChartsArea1 => {
-
-      this.chartsArea1 = tempChartsArea1;
+    this.chartService.getArea1(textParam).subscribe(tempCharts => {
+      this.chartsTimeSeries = tempCharts;
+      if(this.chartsTimeSeries) ;
     }, error => {
-      console.error(error)
+      console.error(error);
     });
-
   }
 
 
   updateArea2Charts() {
-
     let params: string[] = [];
+
     params.push('lang=' + this.localizationService.currentLang())
     params.push('typeRegion=' + this.selectRegion.type)
     params.push('valueRegion=' + this.selectRegion.value)
@@ -418,7 +413,7 @@ export class RightSideBarComponent implements OnInit {
   }
 
   updateArea3Charts() {
-    this.chartsArea1 = []
+    this.chartsTimeSeries = []
     let params: string[] = [];
     params.push('lang=' + this.localizationService.currentLang())
     params.push('typeRegion=' + this.selectRegion.type)
@@ -428,8 +423,8 @@ export class RightSideBarComponent implements OnInit {
     let textParam = params.join('&') + '&' + this.filterSelectedOnLayersForStatistics
 
     this.chartService.getArea3(textParam).subscribe(tempChartsArea3 => {
-
       this.chartsArea3 = tempChartsArea3;
+      console.log(this.chartsArea3);
     }, error => {
       console.error(error)
     });

@@ -67,11 +67,11 @@
       </div>
       <div class="details">
         <div class="details-inner">
-          <div *ngIf="chartsArea1.length! <= 0" class="loader-container">
+          <div *ngIf="chartsTimeSeries.length! <= 0" class="loader-container">
             <div class="loader"></div>
           </div>
-          <p-tabView *ngIf="chartsArea1.length! > 0">
-            <p-tabPanel header="{{chart.title}}" *ngFor="let chart of chartsArea1 ; let i = index" [selected]="i == 0"
+          <p-tabView *ngIf="chartsTimeSeries.length! > 0">
+            <p-tabPanel header="{{chart.title}}" *ngFor="let chart of chartsTimeSeries ; let i = index" [selected]="i == 0"
                         [disabled]="!chart.show" [headerStyle]="{'font-size': 'small'}">
               <div class="margin">
                 <button class="matButton" color="primary" (click)="openCharts(chart)" mat-icon-button>

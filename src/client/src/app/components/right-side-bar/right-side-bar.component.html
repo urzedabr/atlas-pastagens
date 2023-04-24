@@ -68,7 +68,7 @@
         </div>
       </div>
     </div>
-    <div *ngIf="cardsToDisplay.area1">
+    <div *ngIf="cardsToDisplay.timeSeries">
       <div [class]="expandGroups.area1 ? 'group-card group-card-active' :'group-card'">
         <div (click)="expandGroups.area1 = !expandGroups.area1" class="abstract">
           <span>
@@ -79,13 +79,13 @@
         </div>
         <div class="details">
           <div class="details-inner">
-            <div *ngIf="chartsArea1.length! <= 0" class="loader-container">
+            <div *ngIf="chartsTimeSeries.length! <= 0" class="loader-container">
               <div class="loader"></div>
             </div>
 
             <!--table view municipio-->
-            <p-tabView *ngIf="chartsArea1.length! > 0">
-              <p-tabPanel header="{{chart.title}}" *ngFor="let chart of chartsArea1 ; let i = index" [selected]="i == 0"
+            <p-tabView *ngIf="chartsTimeSeries.length! > 0">
+              <p-tabPanel header="{{chart.title}}" *ngFor="let chart of chartsTimeSeries ; let i = index" [selected]="i == 0"
                 [disabled]="!chart.show" [headerStyle]="{'font-size': 'small'}">
                 <div class="margin">
                   <button class="matButton" color="primary" (click)="openCharts(chart)" mat-icon-button>
@@ -122,7 +122,7 @@
               <div class="loader"></div>
             </div>
             <p-tabView *ngIf="chartsArea2.length! > 0">
-              <p-tabPanel header="{{chart.title}}" *ngFor="let chart of chartsArea2 ; let i = index" [selected]="i == 0"
+              <p-tabPanel *ngFor="let chart of chartsArea2 ; let i = index" [selected]="i == 0" header="{{chart.title}}" 
                 [disabled]="!chart.show" [headerStyle]="{'font-size': 'small'}">
                 <div class="margin">
                   <button class="matButton" color="primary" (click)="openCharts(chart)" mat-icon-button>
