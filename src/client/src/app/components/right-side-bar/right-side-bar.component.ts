@@ -377,7 +377,6 @@ export class RightSideBarComponent implements OnInit {
 
     this.chartService.getArea1(textParam).subscribe(tempCharts => {
       this.chartsTimeSeries = tempCharts;
-      if(this.chartsTimeSeries) ;
     }, error => {
       console.error(error);
     });
